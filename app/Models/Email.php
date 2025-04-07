@@ -12,4 +12,8 @@ class Email extends Model
     {
         return $this->belongsTo(Domain::class, 'domain_id');
     }
+    public function forwardings()
+    {
+        return $this->hasOne(Forwarding::class, 'source', 'email');
+    }
 }

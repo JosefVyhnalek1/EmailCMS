@@ -29,7 +29,13 @@ class EmailsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('email')
             ->columns([
-                Tables\Columns\TextColumn::make('email'),
+                Tables\Columns\TextColumn::make('email')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('forwardings.destination')
+                ->label('Forwarding email')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 //
