@@ -8,6 +8,11 @@ class Forwarding extends Model
 {
     //
 
+    public function domains()
+    {
+        return $this->belongsTo(Domain::class, 'domain_id');
+    }
+
     public function emails()
     {
         return $this->belongsTo(Email::class, 'source', 'email');

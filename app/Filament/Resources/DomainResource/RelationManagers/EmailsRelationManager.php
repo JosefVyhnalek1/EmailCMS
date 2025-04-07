@@ -21,6 +21,20 @@ class EmailsRelationManager extends RelationManager
                 Forms\Components\TextInput::make('email')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('forwarding_email')
+                    ->label('Forwarding Email') // Popis pole
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('password')
+                    ->label('Password')
+                    ->password()
+                    ->required()
+                    ->maxLength(255)
+                    ->dehydrated(false),
+
+
+
             ]);
     }
 

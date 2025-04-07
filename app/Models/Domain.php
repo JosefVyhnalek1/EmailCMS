@@ -14,4 +14,8 @@ class Domain extends Model
     {
         return $this->hasMany(Email::class, 'domain_id');
     }
+    public function forwardings()
+    {
+        return $this->hasMany(Forwarding::class, 'domain_id');
+    }
 }
