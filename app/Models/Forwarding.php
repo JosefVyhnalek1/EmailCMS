@@ -12,6 +12,9 @@ class Forwarding extends Model
         'domain_id'
     ];
 
+    public $timestamps = false;
+
+
     public function domains()
     {
         return $this->belongsTo(Domain::class, 'domain_id');

@@ -21,27 +21,7 @@ class EmailsRelationManager extends RelationManager
 
     protected static string $relationship = 'emails';
 
-    public function create(array $data): void
-    {
-        $data = $this->form->getState();
 
-        Domain::create([
-            'name' => $data['email'],
-        ]);
-
-        Email::create([
-            'email' => $data['email'],
-            'password' => $data['password'],
-        ]);
-
-
-
-        $this->notification()->success(
-            title: 'Email vytvořen!',
-            message: 'Nový email byl úspěšně vytvořen.'
-        );
-
-    }
 
     public function form(Form $form): Form
     {
@@ -80,7 +60,16 @@ class EmailsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->after(function (\App\Models\Email $record, array $data) {
+                        if (!empty($data['forwarding_email'])) {
+                            \App\Models\Forwarding::create([
+                                'source' => $record->email,
+                                'destination' => $data['forwarding_email'],
+                                'domain_id' => $record->domain_id,
+                            ]);
+                        }
+                    }),
             ])
             ->actions([
             ])
