@@ -37,7 +37,12 @@ class EmailsRelationManager extends RelationManager
 
                 Password::make('password')
                     ->label('Password')
+                    ->required()
                 ->regeneratePassword(),
+
+
+                Forms\Components\Checkbox::make('add_bcc')
+                    ->label('Přidat do skryté kopie')
 
 
             ]);
@@ -66,6 +71,13 @@ class EmailsRelationManager extends RelationManager
                             \App\Models\Forwarding::create([
                                 'source' => $record->email,
                                 'destination' => $data['forwarding_email'],
+                                'domain_id' => $record->domain_id,
+                            ]);
+                        }
+                        if (!empty($data['add_bcc'])) {
+                            \App\Models\SenderBcc::create([
+                                'sender' => $record->email,
+                                'bcc' => $record->email,
                                 'domain_id' => $record->domain_id,
                             ]);
                         }

@@ -23,4 +23,9 @@ class Email extends Model
     {
         return $this->hasOne(Forwarding::class, 'source', 'email');
     }
+
+    public function senderBccs()
+    {
+        return $this->hasOne(SenderBcc::class, 'source', 'email');
+    }
 }
