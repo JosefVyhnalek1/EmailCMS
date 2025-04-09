@@ -12,6 +12,7 @@
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^3.6",
         "owenvoke/blade-fontawesome": "^2.9",
+        "rawilk/filament-password-input": "^2.0",
         "spatie/laravel-model-info": "^2.0",
         "spatie/laravel-permission": "^6.16"
     },

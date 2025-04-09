@@ -6,7 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Email extends Model
 {
-    //
+    protected $fillable = [
+        'email',
+        'password',
+        'domain_id',
+    ];
+
+    public $timestamps = false;
+
 
     public function domains()
     {

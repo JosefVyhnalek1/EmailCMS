@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Forwarding extends Model
 {
-    //
+    protected $fillable = [
+        'source',
+        'destination',
+        'domain_id'
+    ];
 
     public function domains()
     {

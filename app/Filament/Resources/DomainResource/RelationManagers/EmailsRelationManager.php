@@ -9,10 +9,39 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Rawilk\FilamentPasswordInput\Password;
+
+use App\Models\Domain;
+use App\Models\Email;
+
 
 class EmailsRelationManager extends RelationManager
 {
+
+
     protected static string $relationship = 'emails';
+
+    public function create(array $data): void
+    {
+        $data = $this->form->getState();
+
+        Domain::create([
+            'name' => $data['email'],
+        ]);
+
+        Email::create([
+            'email' => $data['email'],
+            'password' => $data['password'],
+        ]);
+
+
+
+        $this->notification()->success(
+            title: 'Email vytvořen!',
+            message: 'Nový email byl úspěšně vytvořen.'
+        );
+
+    }
 
     public function form(Form $form): Form
     {
@@ -22,17 +51,13 @@ class EmailsRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('forwarding_email')
-                    ->label('Forwarding Email') // Popis pole
-                    ->required()
+                    ->label('Forwarding Email')
                     ->maxLength(255),
 
-                Forms\Components\TextInput::make('password')
-                    ->label('Password')
-                    ->password()
-                    ->required()
-                    ->maxLength(255)
-                    ->dehydrated(false),
 
+                Password::make('password')
+                    ->label('Password')
+                ->regeneratePassword(),
 
 
             ]);
