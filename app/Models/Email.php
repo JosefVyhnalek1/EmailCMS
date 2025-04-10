@@ -14,6 +14,13 @@ class Email extends Model
 
     public $timestamps = false;
 
+    protected static function booted()
+    {
+        static::saving(function ($email) {
+                $email->password = md5($email->password);
+        });
+    }
+
 
     public function domains()
     {
